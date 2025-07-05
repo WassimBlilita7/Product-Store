@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 import { EditIcon, Trash2Icon } from 'lucide-react'
 import { Link } from "react-router-dom";
 import React from 'react'
