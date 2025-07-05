@@ -27,12 +27,16 @@ export const useProductStore = create((set,get)=>({
             const {formData} = get();
             await axios.post(`${BASE_URL}/api/products`,formData);
             await get().fetchProducts();
-            get.resetForm();
+            get().resetForm();
             toast.success(`Product add successfully`);
             document.getElementById("add_product_modal").close()
         } catch (error) {
-            console.log("Error in addProduct function");
-            toast.error(`Something went wrong`);
+            console.log("Error in addProduct function", error);
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Something went wrong");
+            }
         } finally {
             set({loading:false})
         }
@@ -90,13 +94,17 @@ export const useProductStore = create((set,get)=>({
     updateProduct: async(id)=>{
         set({loading:true});
         try {
-            const formData = get();
-            const response = await axios.put(`${BASE_URL}/api/products/${id}`,formData);
+            const {formData} = get();
+            const response = await axios.put(`${BASE_URL}/api/products/${id}`, formData);
             set({currentProduct:response.data.data});
             toast.success(`Product updated successfully`);
         } catch (error) {
-            console.log("Error updateProduct function");
-            toast.error("Error updating the product")
+            console.log("Error updateProduct function", error);
+            if (error.response && error.response.data && error.response.data.message) {
+                toast.error(error.response.data.message);
+            } else {
+                toast.error("Error updating the product");
+            }
         } finally{
             set({loading:false})
         }
