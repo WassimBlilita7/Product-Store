@@ -1,6 +1,6 @@
 # Product Store 🛒
 
-[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/yourusername/product-store)
+[![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://github.com/WassimBlilita7/product-store)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 
 ## Description
@@ -11,15 +11,19 @@
 
 ## Fonctionnalités principales
 
-- 🔍 **Afficher la liste des produits**
-- ➕ **Ajouter un produit**
-- 📝 **Modifier un produit**
-- 🗑️ **Supprimer un produit**
-- 🎨 **Sélection de thème dynamique**
-- 🛡️ **Protection anti-bot et anti-abus (Arcjet)**
-- ⚡ **Notifications toast pour les actions**
+- 🔍 Afficher la liste des produits
+- ➕ Ajouter un produit
+- 📝 Modifier un produit
+- 🗑️ Supprimer un produit
+- 🎨 Sélection de thème dynamique
+- 🛡️ Protection anti-bot et anti-abus (Arcjet)
+- ⚡ Notifications toast pour les actions
+- 🌙 Plus que 10 thémes
+- 🏎️ Chargement rapide grâce à Vite
 
 ---
+
+
 
 ## Architecture du projet
 
@@ -28,6 +32,42 @@ graph TD;
   A[Frontend (React)] --API REST--> B[Backend (Express)]
   B --SQL--> C[(PostgreSQL)]
   B --Arcjet--> D[Arcjet Security]
+```
+
+---
+
+## Variables d'environnement
+
+### Backend (`/backend/.env`)
+
+| Variable      | Description                | Exemple                  |
+|--------------|----------------------------|--------------------------|
+| PORT         | Port du serveur Express    | 5000                     |
+| PGHOST       | Hôte PostgreSQL            | ep-xxx.eu-central-1.aws.neon.tech |
+| PGUSER       | Utilisateur PostgreSQL     | user123                  |
+| PGPASSWORD   | Mot de passe PostgreSQL    | password123              |
+| PGDATABASE   | Nom de la base de données  | productdb                |
+| ARCJET_KEY   | Clé API Arcjet             | arcjet_xxx               |
+
+**Exemple de fichier `.env` backend :**
+```env
+PORT=5000
+PGHOST=ep-xxx.eu-central-1.aws.neon.tech
+PGUSER=user123
+PGPASSWORD=password123
+PGDATABASE=productdb
+ARCJET_KEY=arcjet_xxx
+```
+
+### Frontend (`/frontend/.env`)
+
+| Variable      | Description                | Exemple                  |
+|--------------|----------------------------|--------------------------|
+| VITE_API_URL | URL de l'API backend       | http://localhost:5000    |
+
+**Exemple de fichier `.env` frontend :**
+```env
+VITE_API_URL=http://localhost:5000
 ```
 
 ---
@@ -61,14 +101,6 @@ npm run dev
 
 ---
 
-## Variables d'environnement (Backend)
-
-- `PORT` : Port du serveur Express (par défaut 5000)
-- `PGHOST`, `PGUSER`, `PGPASSWORD`, `PGDATABASE` : Accès PostgreSQL
-- `ARCJET_KEY` : Clé API Arcjet
-
----
-
 ## Endpoints API
 
 | Méthode | Endpoint              | Description                |
@@ -95,9 +127,39 @@ npm run dev
 
 ## Technologies utilisées
 
-- **Frontend** : React, Zustand, DaisyUI, React Router, React Hot Toast
-- **Backend** : Express, PostgreSQL (NeonDB), Arcjet, Helmet, Morgan, CORS
-- **Sécurité** : Arcjet (anti-bot, rate-limit)
+### Frontend
+- React 18+
+- Zustand (state management)
+- DaisyUI & TailwindCSS (UI)
+- React Router
+- React Hot Toast
+- Vite
+
+### Backend
+- Express.js
+- PostgreSQL (NeonDB compatible)
+- Arcjet (sécurité anti-bot/rate-limit)
+- Helmet, Morgan, CORS
+
+### Sécurité
+- Arcjet protège toutes les routes backend contre les bots et les abus.
+- Helmet sécurise les headers HTTP.
+- CORS configuré pour le frontend.
+
+---
+
+## Tests
+
+- **Backend** : Ajoutez vos tests avec Jest ou Supertest (exemple : `npm test` dans `/backend`).
+- **Frontend** : Ajoutez vos tests avec React Testing Library ou Vitest (exemple : `npm run test` dans `/frontend`).
+
+---
+
+## Déploiement
+
+- **Frontend** : Déployable sur Vercel, Netlify, ou autre hébergeur statique.
+- **Backend** : Déployable sur Render, Heroku, Railway, etc.
+- Pensez à bien configurer les variables d'environnement sur la plateforme de déploiement.
 
 ---
 
@@ -111,16 +173,38 @@ npm run dev
 
 ---
 
-## Exemple d'utilisation
+## FAQ
 
-- Accédez à `http://localhost:5173` pour utiliser l'application
-- Ajoutez, modifiez ou supprimez des produits en temps réel
+- **Comment changer le port du frontend ?**
+  Modifiez la clé `port` dans `frontend/vite.config.js`.
+- **Comment changer le favicon ?**
+  Remplacez le fichier dans `frontend/public/` et modifiez le lien dans `index.html`.
+- **Comment connecter à une base NeonDB ?**
+  Renseignez les variables PGHOST, PGUSER, PGPASSWORD, PGDATABASE dans le backend.
 
 ---
 
-## Contact
+## Roadmap
+
+- [ ] Authentification utilisateur
+- [ ] Pagination et recherche produits
+- [ ] Upload d'image (cloud)
+- [ ] Tests automatisés complets
+- [ ] Dashboard admin
+
+---
+
+## Support
 
 Pour toute question ou suggestion : [wassim.blilita19@gmail.com]
+
+Ouvrez une issue sur GitHub pour signaler un bug ou demander une fonctionnalité.
+
+---
+
+## License
+
+Ce projet est sous licence MIT. Voir le fichier [LICENSE](LICENSE).
 
 ---
 
