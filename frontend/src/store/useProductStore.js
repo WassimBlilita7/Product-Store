@@ -9,6 +9,7 @@ export const useProductStore = create((set,get)=>({
     products:[],
     loading:false,
     error:null,
+    currentProduct:null,
 
     formData:{
         name :"",
@@ -67,6 +68,38 @@ export const useProductStore = create((set,get)=>({
             set({loading:false})
         }
         
+    },
+
+    fetchProduct: async(id)=>{
+        set({loading:true});
+        try {
+            const response = await axios.get(`${BASE_URL}/api/products/${id}`);
+            set({currentProduct: response.data.data,
+                formData: response.data.data,
+                error:null
+            })
+        } catch (error) {
+            console.log("Error fetch data");
+            set({error: "Something went wrong" , currentProduct:null});
+
+        } finally{
+            set({loading:false})
+        }
+    },
+
+    updateProduct: async(id)=>{
+        set({loading:true});
+        try {
+            const formData = get();
+            const response = await axios.put(`${BASE_URL}/api/products/${id}`,formData);
+            set({currentProduct:response.data.data});
+            toast.success(`Product updated successfully`);
+        } catch (error) {
+            console.log("Error updateProduct function");
+            toast.error("Error updating the product")
+        } finally{
+            set({loading:false})
+        }
     },
 
 }
